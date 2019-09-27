@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+</head>
+<style>
+    .box {
+        position: relative;
+        float: left;
+        width: 100px;
+    }
+
+    .circle {
+        width: 78px;
+        height: 78px;
+        position: absolute;
+        border-radius: 50%;
+        background: #ccbb91;
+    }
+
+    .pie_left,
+    .pie_right {
+        width: 78px;
+        height: 78px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .left,
+    .right {
+        width: 78px;
+        height: 78px;
+        background: #e5ddc8;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .pie_right,
+    .right {
+        clip: rect(0, auto, auto, 39px);
+    }
+
+    .pie_left,
+    .left {
+        clip: rect(0, 39px, auto, 0);
+    }
+
+    .mask {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        left: 11px;
+        top: 11px;
+        background: #FFF;
+        position: absolute;
+        text-align: center;
+        line-height: 56px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .box {
+        height: 56px;
+    }
+
+    #btn {
+        display: block;
+        margin-top: 70px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        110
+        <div class="circle circle0" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        0
+        <div class="circle circle1" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        30
+        <div class="circle circle2" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        50
+        <div class="circle circle3" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        80
+        <div class="circle circle4" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        100
+        <div class="circle circle5" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <div class="box">
+        100
+        <div class="circle circle5" style="left:0">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+            <div class="mask"><span>0</span>%</div>
+        </div>
+    </div>
+    <script src="jquery1.42.min.js"></script>
+    <script>
+
+        $.fn.getCircle = function (options) {
+            return this.each(function (index, el) {
+                var defaults = {
+                    number: 20
+                };
+                var option = $.extend({}, defaults, options);
+                var $span = $(this).find('span');
+                var n = Number(option.number);
+                var num = n * 3.6;
+                if (n < 0) {
+                    $span.text(n)
+                    $(this).find('.left').css('transform', "rotate(0deg)");
+                    $(this).find('.right').css('transform', "rotate(0deg)");
+                    return
+                }
+                if (n > 100) {
+                    $span.text(n);
+                    $(this).find('.left').css('transform', "rotate(180deg)");
+                    $(this).find('.right').css('transform', "rotate(180deg)");
+                    return false
+                } else {
+                    $span.text(n);
+                    if (num <= 180) {
+                        $(this).find('.left').css('transform', "rotate(0deg)");
+                        $(this).find('.right').css('transform', "rotate(" + num + "deg)");
+                    } else {
+                        $(this).find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
+                        $(this).find('.right').css('transform', "rotate(180deg)");
+                    }
+                }
+            })
+        }
+
+        $(function () {
+
+            $('.circle0').getCircle({
+                number: 110
+            })
+
+            $('.circle1').getCircle({
+                number: -1
+            })
+            $('.circle2').getCircle({
+                number: 30
+            })
+            $('.circle3').getCircle({
+                number: 50
+            })
+            $('.circle4').getCircle({
+                number: 80
+            })
+            $('.circle5').getCircle({
+                number: 100
+            })
+        });
+    </script>
+</body>
+
+</html>
